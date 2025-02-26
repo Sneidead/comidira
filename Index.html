@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante - Inicio</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #fcebd4; margin: 0; padding: 0; }
+        .header { background-color: #8b0000; padding: 20px; color: white; font-size: 24px; font-weight: bold; }
+        .banner { width: 100%; height: 300px; background: url('banner.jpg') center/cover; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: bold; }
+        .container { width: 90%; margin: auto; padding: 20px; }
+        .food-gallery { display: flex; flex-wrap: wrap; justify-content: center; }
+        .food-item { margin: 20px; padding: 15px; border-radius: 10px; background: white; width: 250px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); cursor: pointer; }
+        .food-item img { width: 100%; border-radius: 10px; }
+        .food-name { display: block; font-size: 18px; font-weight: bold; margin: 10px 0; }
+        .btn { background-color: #8b0000; color: white; padding: 10px 20px; border: none; font-size: 18px; cursor: pointer; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">Bienvenido a Nuestro Restaurante</div>
+    <div class="banner">Disfruta de la mejor comida</div>
+    <div class="container">
+        <h2>Nuestro Menú</h2>
+        <div class="food-gallery" id="food-list"></div>
+        <button class="btn" onclick="enviarPedido()">Hacer un Pedido</button>
+    </div>
+    
+    <script>
+        const foods = [
+            {name: "Pizza", img: "pizza.jpg"},
+            {name: "Hamburguesa", img: "hamburguesa.jpg"},
+            {name: "Sushi", img: "sushi.jpg"},
+            {name: "Pasta", img: "pasta.jpg"},
+            {name: "Ensalada", img: "ensalada.jpg"}
+        ];
+        
+        const foodList = document.getElementById("food-list");
+        let selectedFood = "";
+        
+        foods.forEach(food => {
+            const div = document.createElement("div");
+            div.classList.add("food-item");
+            div.innerHTML = `<img src='${food.img}' alt='${food.name}'>
+                            <span class='food-name'>${food.name}</span>`;
+            div.onclick = () => { selectedFood = food.name; alert(`Seleccionaste: ${food.name}`); };
+            foodList.appendChild(div);
+        });
+        
+        function enviarPedido() {
+            if (selectedFood) {
+                const mensaje = encodeURIComponent(`Hola, quiero pedir: ${selectedFood}`);
+                window.location.href = `https://wa.me/3245333747?text=${mensaje}`;
+            } else {
+                alert("Por favor selecciona un platillo antes de hacer el pedido.");
+            }
+        }
+    </script>
+</body>
+</html>
